@@ -10,6 +10,7 @@ export const userSlice = createSlice({
         userId: 0,
         username: '',
         email: '',
+        avatar: '',
         auth: null
     },
     reducers: {
