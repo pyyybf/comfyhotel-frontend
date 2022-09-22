@@ -1,4 +1,4 @@
-import HttpRequest from "../util/request";
+import HttpRequest from "@/util/request";
 
 const api = {
     userPre: '/api/user',

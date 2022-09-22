@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 import {
     loginAPI,
     registerAPI
-} from "../../api/user";
+} from "@/api/user";
 
 export const userSlice = createSlice({
     name: 'user',
