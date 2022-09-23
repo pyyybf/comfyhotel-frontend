@@ -6,10 +6,24 @@ import reportWebVitals from './reportWebVitals';
 import store from '@/store/index';
 import {Provider} from 'react-redux';
 
+import {createTheme} from '@mui/material/styles';
+import {ThemeProvider, CssBaseline} from "@mui/material";
+
+const theme = createTheme({
+    typography: {
+        button: {
+            textTransform: 'none',  // disable auto upper case
+        }
+    }
+});
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>
-        <App />
+        <ThemeProvider theme={theme}>
+            <CssBaseline/>
+            <App/>
+        </ThemeProvider>
     </Provider>
 );
 

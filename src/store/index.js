@@ -1,11 +1,13 @@
-import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 import userSlice from "./modules/user";
+import {createStore, applyMiddleware, combineReducers} from "redux";
+import {composeWithDevTools} from "redux-devtools-extension";
+import thunk from "redux-thunk";
 
-export default configureStore({
-    reducer: {
-        user: userSlice
-    },
-    middleware: getDefaultMiddleware({
-        serializableCheck: false
+const middleware = [thunk];
+
+export default createStore(
+    combineReducers({
+        userSlice
     }),
-})
+    composeWithDevTools(applyMiddleware(...middleware))
+);
