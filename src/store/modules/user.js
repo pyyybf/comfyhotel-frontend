@@ -1,6 +1,7 @@
 import {
     loginAPI,
-    registerAPI
+    registerAPI,
+    logoutAPI
 } from "@/api/user";
 
 const initialState = {
@@ -15,6 +16,8 @@ const types = {
     LOGIN_FAIL: 'LOGIN_FAIL',
     REGISTER_SUCCESS: 'REGISTER_SUCCESS',
     REGISTER_FAIL: 'REGISTER_FAIL',
+    LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
+    LOGOUT_FAIL: 'LOGOUT_FAIL'
 }
 
 export default function userSlice(state = initialState, action) {
@@ -30,6 +33,12 @@ export default function userSlice(state = initialState, action) {
         case types.REGISTER_SUCCESS:
             return {...state, payload};
         case types.REGISTER_FAIL:
+            return {...state, payload};
+        case types.LOGOUT_SUCCESS:
+            state.auth = null;
+            localStorage.removeItem('auth');
+            return {...state, payload};
+        case types.LOGOUT_FAIL:
             return {...state, payload};
         default:
             return state;
@@ -78,6 +87,30 @@ export const register = (data) => (dispatch) => {
     }).catch(error => {
         dispatch({
             type: types.REGISTER_FAIL,
+            payload: error
+        })
+        return Promise.reject(error);
+    })
+}
+
+export const logout = (data) => (dispatch) => {
+    return logoutAPI(data).then(response => {
+        if (response.data.success) {
+            dispatch({
+                type: types.LOGOUT_SUCCESS,
+                payload: response.data.content
+            })
+            return Promise.resolve(response.data.content);
+        } else {
+            dispatch({
+                type: types.LOGOUT_FAIL,
+                payload: response.data.message
+            })
+            return Promise.reject(response.data.message);
+        }
+    }).catch(error => {
+        dispatch({
+            type: types.LOGOUT_FAIL,
             payload: error
         })
         return Promise.reject(error);

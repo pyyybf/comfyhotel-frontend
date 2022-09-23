@@ -13,6 +13,9 @@ import {
     MenuItem,
 } from '@mui/material';
 
+import {useDispatch} from "react-redux";
+import {logout} from "@/store/modules/user"
+
 import logo from '@/assets/logo.svg';
 import LoginDialog from "./LoginDialog";
 
@@ -23,12 +26,27 @@ const Header = () => {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [dialogVisible, setDialogVisible] = React.useState(false);
 
+    const dispatch = useDispatch();
+
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleCloseUserMenu = () => {
+    const handleCloseUserMenu = (key) => {
         setAnchorElUser(null);
+        switch (key) {
+            case 'Logout':
+                dispatch(
+                    logout('token')
+                ).then(res => {
+                    setAuth(null)
+                }).catch(err => {
+
+                })
+                return
+            default:
+                return
+        }
     };
 
     const handleLogin = () => {
@@ -78,7 +96,7 @@ const Header = () => {
                                 onClose={handleCloseUserMenu}
                             >
                                 {settings.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                    <MenuItem key={setting} onClick={() => handleCloseUserMenu(setting)}>
                                         <Typography textAlign="center">{setting}</Typography>
                                     </MenuItem>
                                 ))}
@@ -86,7 +104,8 @@ const Header = () => {
                         </Box>
                     ) : (<React.Fragment>
                             <Button variant="outlined" onClick={handleLogin}>Sign in</Button>
-                            <LoginDialog ifVisible={dialogVisible} onClose={handleCloseDialog} setAuth={setAuth}></LoginDialog>
+                            <LoginDialog ifVisible={dialogVisible} onClose={handleCloseDialog}
+                                         setAuth={setAuth}></LoginDialog>
                         </React.Fragment>
                     )}
                 </Toolbar>
