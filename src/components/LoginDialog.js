@@ -39,12 +39,108 @@ const LoginDialog = (props) => {
     const [confirmPwd, setConfirmPwd] = React.useState('');
     const [loginAlert, setLoginAlert] = React.useState(null);
     const [registerAlert, setRegisterAlert] = React.useState(null);
+    const [loginEmailError, setLoginEmailError] = React.useState(false);
+    const [loginEmailHelperText, setLoginEmailHelperText] = React.useState(null);
+    const [loginPasswordError, setLoginPasswordError] = React.useState(false);
+    const [loginPasswordHelperText, setLoginPasswordHelperText] = React.useState(null);
+    const [registerEmailError, setRegisterEmailError] = React.useState(false);
+    const [registerEmailHelperText, setRegisterEmailHelperText] = React.useState(null);
+    const [registerFirstNameError, setRegisterFirstNameError] = React.useState(false);
+    const [registerFirstNameHelperText, setRegisterFirstNameHelperText] = React.useState(null);
+    const [registerLastNameError, setRegisterLastNameError] = React.useState(false);
+    const [registerLastNameHelperText, setRegisterLastNameHelperText] = React.useState(null);
+    const [registerPasswordError, setRegisterPasswordError] = React.useState(false);
+    const [registerPasswordHelperText, setRegisterPasswordHelperText] = React.useState(null);
+    const [registerConfirmPwdError, setRegisterConfirmPwdError] = React.useState(false);
+    const [registerConfirmPwdHelperText, setRegisterConfirmPwdHelperText] = React.useState(null);
 
     const dispatch = useDispatch();
 
+    const validateLoginEmail = () => {
+        if (loginInfo.email === '') {
+            setLoginEmailError(true)
+            setLoginEmailHelperText("Email address can't be blank.")
+        } else if (!/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/.test(loginInfo.email)) {
+            setLoginEmailError(true)
+            setLoginEmailHelperText("Invalid email address.")
+        } else {
+            setLoginEmailError(false)
+            setLoginEmailHelperText(null)
+        }
+    }
+
+    const validateLoginPassword = () => {
+        if (loginInfo.password === '') {
+            setLoginPasswordError(true)
+            setLoginPasswordHelperText("Password can't be blank.")
+        } else {
+            setLoginPasswordError(false)
+            setLoginPasswordHelperText(null)
+        }
+    }
+
+    const validateRegisterEmail = () => {
+        if (registerInfo.email === '') {
+            setRegisterEmailError(true)
+            setRegisterEmailHelperText("Email address can't be blank.")
+        } else if (!/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/.test(registerInfo.email)) {
+            setRegisterEmailError(true)
+            setRegisterEmailHelperText("Invalid email address.")
+        } else {
+            setRegisterEmailError(false)
+            setRegisterEmailHelperText(null)
+        }
+    }
+
+    const validateRegisterFirstName = () => {
+        if (registerInfo.firstName === '') {
+            setRegisterFirstNameError(true)
+            setRegisterFirstNameHelperText("First name can't be blank.")
+        } else {
+            setRegisterFirstNameError(false)
+            setRegisterFirstNameHelperText(null)
+        }
+    }
+
+    const validateRegisterLastName = () => {
+        if (registerInfo.lastName === '') {
+            setRegisterLastNameError(true)
+            setRegisterLastNameHelperText("Last Name can't be blank.")
+        } else {
+            setRegisterLastNameError(false)
+            setRegisterLastNameHelperText(null)
+        }
+    }
+
+    const validateRegisterPassword = () => {
+        if (registerInfo.password === '') {
+            setRegisterPasswordError(true)
+            setRegisterPasswordHelperText("Password can't be blank.")
+        } else {
+            setRegisterPasswordError(false)
+            setRegisterPasswordHelperText(null)
+        }
+    }
+
+    const validateRegisterConfirmPwd = () => {
+        if (confirmPwd !== registerInfo.password) {
+            setRegisterConfirmPwdError(true)
+            setRegisterConfirmPwdHelperText("Those passwords didn't match.")
+        } else {
+            setRegisterConfirmPwdError(false)
+            setRegisterConfirmPwdHelperText(null)
+        }
+    }
+
     const handleLogin = () => {
+        validateLoginEmail()
+        validateLoginPassword()
+        if (loginEmailError || loginPasswordError) {
+            return
+        }
         dispatch(login(loginInfo)).then(res => {
             setLoginAlert(null)
+            props.onClose()
             props.setAuth(res.authorities[0].authority)
         }).catch(err => {
             setLoginAlert(err)
@@ -52,6 +148,14 @@ const LoginDialog = (props) => {
     }
 
     const handleRegister = () => {
+        validateRegisterEmail()
+        validateRegisterFirstName()
+        validateRegisterLastName()
+        validateRegisterPassword()
+        validateRegisterConfirmPwd()
+        if (registerEmailError || registerFirstNameError || registerLastNameError || registerPasswordError || registerConfirmPwdError) {
+            return
+        }
         dispatch(register(registerInfo)).then(res => {
             setRegisterAlert(null)
             setIfLogin(true)
@@ -80,6 +184,10 @@ const LoginDialog = (props) => {
                         variant="standard"
                         value={loginInfo.email}
                         onChange={e => setLoginInfo({...loginInfo, email: e.target.value})}
+                        required
+                        error={loginEmailError}
+                        helperText={loginEmailHelperText}
+                        onBlur={validateLoginEmail}
                     />
                     <TextField
                         margin="dense"
@@ -90,6 +198,10 @@ const LoginDialog = (props) => {
                         variant="standard"
                         value={loginInfo.password}
                         onChange={e => setLoginInfo({...loginInfo, password: e.target.value})}
+                        required
+                        error={loginPasswordError}
+                        helperText={loginPasswordHelperText}
+                        onBlur={validateLoginPassword}
                     />
                     <Button
                         margin="dense"
@@ -121,6 +233,10 @@ const LoginDialog = (props) => {
                         variant="standard"
                         value={registerInfo.email}
                         onChange={e => setRegisterInfo({...registerInfo, email: e.target.value})}
+                        required
+                        error={registerEmailError}
+                        helperText={registerEmailHelperText}
+                        onBlur={validateRegisterEmail}
                     />
                     <TextField
                         margin="dense"
@@ -131,6 +247,10 @@ const LoginDialog = (props) => {
                         variant="standard"
                         value={registerInfo.firstName}
                         onChange={e => setRegisterInfo({...registerInfo, firstName: e.target.value})}
+                        required
+                        error={registerFirstNameError}
+                        helperText={registerFirstNameHelperText}
+                        onBlur={validateRegisterFirstName}
                     />
                     <TextField
                         margin="dense"
@@ -141,6 +261,10 @@ const LoginDialog = (props) => {
                         variant="standard"
                         value={registerInfo.lastName}
                         onChange={e => setRegisterInfo({...registerInfo, lastName: e.target.value})}
+                        required
+                        error={registerLastNameError}
+                        helperText={registerLastNameHelperText}
+                        onBlur={validateRegisterLastName}
                     />
                     <TextField
                         margin="dense"
@@ -151,6 +275,10 @@ const LoginDialog = (props) => {
                         variant="standard"
                         value={registerInfo.password}
                         onChange={e => setRegisterInfo({...registerInfo, password: e.target.value})}
+                        required
+                        error={registerPasswordError}
+                        helperText={registerPasswordHelperText}
+                        onBlur={validateRegisterPassword}
                     />
                     <TextField
                         margin="dense"
@@ -161,6 +289,10 @@ const LoginDialog = (props) => {
                         variant="standard"
                         value={confirmPwd}
                         onChange={e => setConfirmPwd(e.target.value)}
+                        required
+                        error={registerConfirmPwdError}
+                        helperText={registerConfirmPwdHelperText}
+                        onBlur={validateRegisterConfirmPwd}
                     />
                     <Button
                         margin="dense"
