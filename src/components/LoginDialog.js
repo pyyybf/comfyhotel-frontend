@@ -122,6 +122,12 @@ const LoginDialog = (props) => {
         if (registerInfo.password === '') {
             setRegisterPasswordError(true)
             setRegisterPasswordHelperText("Password can't be blank.")
+        } else if (registerInfo.password.length < 6 || registerInfo.password.length > 16) {
+            setRegisterPasswordError(true)
+            setRegisterPasswordHelperText("Invalid password. Use 6-16 characters or more for your password.")
+        } else if (!PWD_PATTERN.test(registerInfo.password)) {
+            setRegisterPasswordError(true)
+            setRegisterPasswordHelperText("Invalid password. Try a mix of letters and numbers.")
         } else {
             setRegisterPasswordError(false)
             setRegisterPasswordHelperText(null)
