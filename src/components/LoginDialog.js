@@ -32,17 +32,23 @@ const initRegisterInfo = {
     password: ''
 }
 
+const EMAIL_PATTERN = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+const PWD_PATTERN = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;  // 6-16 characters, includes number and letter
+
 const LoginDialog = (props) => {
-    const [ifLogin, setIfLogin] = React.useState(true);
+    const [ifLogin, setIfLogin] = React.useState(true);  // login or register
     const [loginInfo, setLoginInfo] = React.useState({...initLoginInfo});
     const [registerInfo, setRegisterInfo] = React.useState(initRegisterInfo);
     const [confirmPwd, setConfirmPwd] = React.useState('');
+    // message returned by login&register failure
     const [loginAlert, setLoginAlert] = React.useState(null);
     const [registerAlert, setRegisterAlert] = React.useState(null);
+    // login validator
     const [loginEmailError, setLoginEmailError] = React.useState(false);
     const [loginEmailHelperText, setLoginEmailHelperText] = React.useState(null);
     const [loginPasswordError, setLoginPasswordError] = React.useState(false);
     const [loginPasswordHelperText, setLoginPasswordHelperText] = React.useState(null);
+    // register validator
     const [registerEmailError, setRegisterEmailError] = React.useState(false);
     const [registerEmailHelperText, setRegisterEmailHelperText] = React.useState(null);
     const [registerFirstNameError, setRegisterFirstNameError] = React.useState(false);
@@ -60,7 +66,7 @@ const LoginDialog = (props) => {
         if (loginInfo.email === '') {
             setLoginEmailError(true)
             setLoginEmailHelperText("Email address can't be blank.")
-        } else if (!/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/.test(loginInfo.email)) {
+        } else if (!EMAIL_PATTERN.test(loginInfo.email)) {
             setLoginEmailError(true)
             setLoginEmailHelperText("Invalid email address.")
         } else {
