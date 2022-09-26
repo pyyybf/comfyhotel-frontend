@@ -13,8 +13,16 @@ const theme = createTheme({
     typography: {
         button: {
             textTransform: 'none',  // disable auto upper case
-        }
-    }
+        },
+    },
+    palette: {
+        primary: {
+            main: '#ba68c8',
+        },
+        secondary: {
+            main: '#e040fb',
+        },
+    },
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
