@@ -71,7 +71,8 @@ const Header = () => {
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box sx={{flexGrow: 1}}>
-                        <img src={logo} style={{height: '3em', maxWidth: '100%'}} alt="Logo"></img>
+                        <img src={logo} style={{height: '2em', maxWidth: '100%', verticalAlign: 'middle'}}
+                             alt="Logo"></img>
                     </Box>
 
                     {auth ? (
