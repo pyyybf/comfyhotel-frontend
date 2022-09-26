@@ -27,6 +27,8 @@ export default function userSlice(state = initialState, action) {
         case types.LOGIN_SUCCESS:
             state.auth = payload.authorities[0].authority;
             localStorage.setItem('auth', payload.authorities[0].authority)
+            state.avatar = payload.avatar;
+            localStorage.setItem('avatar', payload.avatar)
             return {...state, payload};
         case types.LOGIN_FAIL:
             return {...state, payload};
@@ -37,6 +39,8 @@ export default function userSlice(state = initialState, action) {
         case types.LOGOUT_SUCCESS:
             state.auth = null;
             localStorage.removeItem('auth');
+            state.avatar = null;
+            localStorage.removeItem('avatar');
             return {...state, payload};
         case types.LOGOUT_FAIL:
             return {...state, payload};

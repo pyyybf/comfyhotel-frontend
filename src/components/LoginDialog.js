@@ -152,8 +152,9 @@ const LoginDialog = (props) => {
         }
         dispatch(login(loginInfo)).then(res => {
             setLoginAlert(null)
-            props.onClose()
             props.setAuth(res.authorities[0].authority)
+            props.setAvatar(res.avatar)
+            props.onClose()
         }).catch(err => {
             setLoginAlert(err)
         })

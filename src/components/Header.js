@@ -23,6 +23,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Header = () => {
     const [auth, setAuth] = React.useState(localStorage.getItem('auth'));
+    const [avatar, setAvatar] = React.useState(localStorage.getItem('avatar'));
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [dialogVisible, setDialogVisible] = React.useState(false);
 
@@ -40,6 +41,7 @@ const Header = () => {
                     logout('token')
                 ).then(res => {
                     setAuth(null)
+                    setAvatar(null)
                 }).catch(err => {
 
                 })
@@ -76,7 +78,7 @@ const Header = () => {
                         <Box sx={{flexGrow: 0}}>
                             <Tooltip title="Open settings">
                                 <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                    <Avatar alt="Yue Pan" src=""/>
+                                    <Avatar alt="Yue Pan" src={avatar}/>
                                 </IconButton>
                             </Tooltip>
                             <Menu
@@ -104,8 +106,10 @@ const Header = () => {
                         </Box>
                     ) : (<React.Fragment>
                             <Button variant="outlined" onClick={handleLogin}>Sign in</Button>
-                            <LoginDialog ifVisible={dialogVisible} onClose={handleCloseDialog}
-                                         setAuth={setAuth}></LoginDialog>
+                            <LoginDialog ifVisible={dialogVisible}
+                                         onClose={handleCloseDialog}
+                                         setAuth={setAuth}
+                                         setAvatar={setAvatar}></LoginDialog>
                         </React.Fragment>
                     )}
                 </Toolbar>
