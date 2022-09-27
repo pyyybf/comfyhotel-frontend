@@ -194,7 +194,6 @@ const LoginDialog = (props) => {
                         label="Email Address"
                         type="email"
                         fullWidth
-                        variant="standard"
                         value={loginInfo.email}
                         onChange={e => setLoginInfo({...loginInfo, email: e.target.value})}
                         required
@@ -208,7 +207,6 @@ const LoginDialog = (props) => {
                         label="Password"
                         type="password"
                         fullWidth
-                        variant="standard"
                         value={loginInfo.password}
                         onChange={e => setLoginInfo({...loginInfo, password: e.target.value})}
                         required
@@ -243,7 +241,6 @@ const LoginDialog = (props) => {
                         label="Email Address"
                         type="email"
                         fullWidth
-                        variant="standard"
                         value={registerInfo.email}
                         onChange={e => setRegisterInfo({...registerInfo, email: e.target.value})}
                         required
@@ -257,7 +254,6 @@ const LoginDialog = (props) => {
                         label="First Name"
                         type="text"
                         fullWidth
-                        variant="standard"
                         value={registerInfo.firstName}
                         onChange={e => setRegisterInfo({...registerInfo, firstName: e.target.value})}
                         required
@@ -271,7 +267,6 @@ const LoginDialog = (props) => {
                         label="Last Name"
                         type="text"
                         fullWidth
-                        variant="standard"
                         value={registerInfo.lastName}
                         onChange={e => setRegisterInfo({...registerInfo, lastName: e.target.value})}
                         required
@@ -285,7 +280,6 @@ const LoginDialog = (props) => {
                         label="Password"
                         type="password"
                         fullWidth
-                        variant="standard"
                         value={registerInfo.password}
                         onChange={e => setRegisterInfo({...registerInfo, password: e.target.value})}
                         required
@@ -299,7 +293,6 @@ const LoginDialog = (props) => {
                         label="Confirm Password"
                         type="password"
                         fullWidth
-                        variant="standard"
                         value={confirmPwd}
                         onChange={e => setConfirmPwd(e.target.value)}
                         required

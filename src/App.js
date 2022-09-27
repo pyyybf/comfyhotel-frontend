@@ -12,12 +12,10 @@ function App() {
         <Router>
             <Header/>
             <Grid container alignItems="center" justifyContent="center">
-                <Grid item xs={12} sm={10} md={10}>
-                    <Routes>
-                        <Route path="/" element={Home()}/>
-                        <Route path="/myHome" element={MyHome()}/>
-                    </Routes>
-                </Grid>
+                <Routes>
+                    <Route path="/" element={Home()}/>
+                    <Route path="/myHome" element={MyHome()}/>
+                </Routes>
             </Grid>
         </Router>
     );
