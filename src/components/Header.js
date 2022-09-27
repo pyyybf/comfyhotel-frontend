@@ -19,7 +19,7 @@ import {logout} from "@/store/modules/user"
 import logo from '@/assets/logo.svg';
 import LoginDialog from "./LoginDialog";
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Account', 'Logout'];
 
 const Header = () => {
     const [auth, setAuth] = React.useState(localStorage.getItem('auth'));
