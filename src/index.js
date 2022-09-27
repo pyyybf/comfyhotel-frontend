@@ -17,10 +17,10 @@ const theme = createTheme({
     },
     palette: {
         primary: {
-            main: '#ba68c8',
+            main: '#A084CA',
         },
         secondary: {
-            main: '#e040fb',
+            main: '#645CAA',
         },
     },
 });
