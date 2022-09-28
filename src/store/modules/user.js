@@ -50,73 +50,79 @@ export default function userSlice(state = initialState, action) {
 }
 
 export const login = (data) => (dispatch) => {
-    return loginAPI(data).then(response => {
-        if (response.data.success) {
-            dispatch({
-                type: types.LOGIN_SUCCESS,
-                payload: response.data.content
-            })
-            return Promise.resolve(response.data.content);
-        } else {
+    return new Promise((resolve, reject) => {
+        loginAPI(data).then(response => {
+            if (response.data.success) {
+                dispatch({
+                    type: types.LOGIN_SUCCESS,
+                    payload: response.data.content
+                })
+                resolve(response.data.content);
+            } else {
+                dispatch({
+                    type: types.LOGIN_FAIL,
+                    payload: response.data.message
+                })
+                reject(response.data.message);
+            }
+        }).catch(error => {
             dispatch({
                 type: types.LOGIN_FAIL,
-                payload: response.data.message
+                payload: error
             })
-            return Promise.reject(response.data.message);
-        }
-    }).catch(error => {
-        dispatch({
-            type: types.LOGIN_FAIL,
-            payload: error
+            reject(error);
         })
-        return Promise.reject(error);
     })
 }
 
 export const register = (data) => (dispatch) => {
-    return registerAPI(data).then(response => {
-        if (response.data.success) {
-            dispatch({
-                type: types.REGISTER_SUCCESS,
-                payload: response.data.content
-            })
-            return Promise.resolve(response.data.content);
-        } else {
+    return new Promise((resolve, reject) => {
+        registerAPI(data).then(response => {
+            if (response.data.success) {
+                dispatch({
+                    type: types.REGISTER_SUCCESS,
+                    payload: response.data.content
+                })
+                resolve(response.data.content);
+            } else {
+                dispatch({
+                    type: types.REGISTER_FAIL,
+                    payload: response.data.message
+                })
+                reject(response.data.message);
+            }
+        }).catch(error => {
             dispatch({
                 type: types.REGISTER_FAIL,
-                payload: response.data.message
+                payload: error
             })
-            return Promise.reject(response.data.message);
-        }
-    }).catch(error => {
-        dispatch({
-            type: types.REGISTER_FAIL,
-            payload: error
+            reject(error);
         })
-        return Promise.reject(error);
     })
 }
 
 export const logout = (data) => (dispatch) => {
-    return logoutAPI(data).then(response => {
-        if (response.data.success) {
-            dispatch({
-                type: types.LOGOUT_SUCCESS,
-                payload: response.data.content
-            })
-            return Promise.resolve(response.data.content);
-        } else {
+    return new Promise((resolve, reject) => {
+        logoutAPI(data).then(response => {
+            if (response.data.success) {
+                dispatch({
+                    type: types.LOGOUT_SUCCESS,
+                    payload: response.data.content
+                })
+                resolve(response.data.content);
+            } else {
+                dispatch({
+                    type: types.LOGOUT_FAIL,
+                    payload: response.data.message
+                })
+                reject(response.data.message);
+            }
+        }).catch(error => {
             dispatch({
                 type: types.LOGOUT_FAIL,
-                payload: response.data.message
+                payload: error
             })
-            return Promise.reject(response.data.message);
-        }
-    }).catch(error => {
-        dispatch({
-            type: types.LOGOUT_FAIL,
-            payload: error
+            reject(error);
         })
-        return Promise.reject(error);
     })
 }
