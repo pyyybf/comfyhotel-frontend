@@ -121,6 +121,7 @@ const Home = () => {
                             <DatePicker
                                 label="Check-in"
                                 value={searchInfo.checkIn}
+                                disablePast
                                 onChange={(newValue) => {
                                     setSearchInfo({
                                         ...searchInfo,
@@ -137,6 +138,7 @@ const Home = () => {
                             <DatePicker style={{width: '100%', backgroundColor: 'red'}} xs={{width: '100%'}}
                                         label="Check-out"
                                         value={searchInfo.checkOut}
+                                        disablePast
                                         onChange={(newValue) => {
                                             setSearchInfo({
                                                 ...searchInfo,
