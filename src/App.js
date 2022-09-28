@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import Grid from '@mui/material/Grid';
-import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
+import {Route, HashRouter as Router, Routes} from 'react-router-dom';
 
 import Header from "@/components/Header";
 import Home from "@/views/home/Home";
