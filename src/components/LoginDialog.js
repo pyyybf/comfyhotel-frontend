@@ -14,7 +14,7 @@ import AppleIcon from '@mui/icons-material/Apple';
 import FacebookIcon from '@mui/icons-material/Facebook';
 
 import {useDispatch} from "react-redux";
-import {login, register} from "@/store/modules/user"
+import {login, register} from "@/store/modules/user";
 
 const iconBtnStyle = {
     fontSize: '1.8em'
